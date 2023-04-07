@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import initialData from './initial-dats';
 import Column from './components/Column';
+import { IData } from './types';
 
 function App() {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState<IData>(initialData);
 
   return (
     <div>
