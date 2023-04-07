@@ -22,7 +22,7 @@ interface IColumnProps {
   tasks: ITask[];
 }
 
-function Column(props: IColumnProps) {
+export default function Column(props: IColumnProps) {
   return (
     <Container>
       <Title>{props.column.title}</Title>
@@ -34,5 +34,3 @@ function Column(props: IColumnProps) {
     </Container>
   );
 }
-
-export default Column;

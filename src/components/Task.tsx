@@ -12,12 +12,10 @@ interface ITaskProps {
   task: ITask;
 }
 
-function Task(props: ITaskProps) {
+export default function Task(props: ITaskProps) {
   return (
     <Container>
       {props.task.content}
     </Container>
   );
 }
-
-export default Task;
