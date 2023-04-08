@@ -3,7 +3,7 @@ import initialData from './initialData';
 import styled from 'styled-components';
 import Column from './components/Column';
 import { IData } from './types';
-import { DragDropContext, DragStart, DropResult } from '@hello-pangea/dnd';
+import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import produce from 'immer';
 
 const Container = styled.div`
@@ -12,11 +12,6 @@ const Container = styled.div`
 
 export default function App() {
   const [data, setData] = useState<IData>(initialData);
-  const [draggingTaskColumnIndex, setDraggingTaskColumnIndex] = useState<number | null>(null);
-
-  function handleDragStart(start: DragStart) {
-    setDraggingTaskColumnIndex(data.columnOrder.indexOf(start.source.droppableId));
-  }
 
   function handleDragEnd(result: DropResult) {
     const { destination, source, draggableId } = result;
@@ -42,22 +37,16 @@ export default function App() {
         }
       });
     });
-
-    setDraggingTaskColumnIndex(null);
   }
 
   return (
-    <DragDropContext
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
+    <DragDropContext onDragEnd={handleDragEnd}>
       <Container>
         {data.columnOrder.map((columnId, index) => {
           const column = data.columns[columnId];
           const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
-          const isDropDisabled = draggingTaskColumnIndex !== null && index < draggingTaskColumnIndex;
           return (
-            <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />
+            <Column key={column.id} column={column} tasks={tasks} />
           );
         })}
       </Container>

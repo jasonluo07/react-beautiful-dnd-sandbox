@@ -28,7 +28,6 @@ const TaskList = styled.div<{ isDraggingOver: boolean }>`
 interface IColumnProps {
   column: IColumn;
   tasks: ITask[];
-  isDropDisabled: boolean;
 }
 
 export default function Column(props: IColumnProps) {
@@ -37,7 +36,6 @@ export default function Column(props: IColumnProps) {
       <Title>{props.column.title}</Title>
       <Droppable
         droppableId={props.column.id}
-        isDropDisabled={props.isDropDisabled}
       >
         {(provided, snapshot) => (
           <TaskList
