@@ -14,13 +14,24 @@ export default function App() {
   const [data, setData] = useState<IData>(initialData);
 
   function handleDragEnd(result: DropResult) {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
     }
 
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+
+    if (type === 'column') {
+      setData(prevData => {
+        return produce(prevData, draft => {
+          draft.columnOrder.splice(source.index, 1);
+          draft.columnOrder.splice(destination.index, 0, draggableId);
+        });
+      });
+
       return;
     }
 
