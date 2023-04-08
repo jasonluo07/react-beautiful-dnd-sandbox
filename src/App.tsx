@@ -8,7 +8,7 @@ export default function App() {
   const [data, setData] = useState<IData>(initialData);
 
   function handleDragEnd() {
-    // TODO: update state
+    // TODO: reordering logic
   }
 
   return (
