@@ -9,7 +9,6 @@ const initialData: IData = {
     'task-5': { id: 'task-5', content: 'Do the dishes' },
     'task-6': { id: 'task-6', content: 'Study Math' },
     'task-7': { id: 'task-7', content: 'Study English' },
-    'task-8': { id: 'task-8', content: 'Study Programming' },
   },
   columns: {
     'column-1': {
@@ -19,11 +18,16 @@ const initialData: IData = {
     },
     'column-2': {
       id: 'column-2',
-      title: 'Doing',
-      taskIds: ['task-5', 'task-6', 'task-7', 'task-8'],
+      title: 'In progress',
+      taskIds: ['task-5', 'task-6', 'task-7'],
+    },
+    'column-3': {
+      id: 'column-3',
+      title: 'Done',
+      taskIds: [],
     },
   },
-  columnOrder: ['column-1', 'column-2'],
+  columnOrder: ['column-1', 'column-2', 'column-3'],
 };
 
 export default initialData;
