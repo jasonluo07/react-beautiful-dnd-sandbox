@@ -17,7 +17,6 @@ const TaskList = styled.div`
 `;
 
 interface IColumnProps {
-  key: string;
   column: IColumn;
   tasks: ITask[];
 }
