@@ -3,11 +3,17 @@ import { ITask } from '../types';
 import { Draggable } from '@hello-pangea/dnd';
 
 const Container = styled.div<{ isDragging: boolean }>`
-  border: 1px solid lightgrey;
-  border-radius: 2px;
+  border: 3px solid lightgrey;
+  border-radius: 50%;
   padding: 8px;
   margin-bottom: 8px;
   background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 interface ITaskProps {
@@ -25,7 +31,7 @@ export default function Task(props: ITaskProps) {
           {...provided.dragHandleProps}
           isDragging={snapshot.isDragging}
         >
-          {props.task.content}
+          {props.task.content[0]}
         </Container>
       )}
     </Draggable>
