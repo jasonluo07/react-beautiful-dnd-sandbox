@@ -26,9 +26,15 @@ export default function App() {
 
     setData(prevData => {
       return produce(prevData, draft => {
-        const column = draft.columns[source.droppableId];
-        column.taskIds.splice(source.index, 1);
-        column.taskIds.splice(destination.index, 0, draggableId);
+        const sourceColumn = draft.columns[source.droppableId];
+        const destinationColumn = draft.columns[destination.droppableId];
+
+        sourceColumn.taskIds.splice(source.index, 1);
+        if (sourceColumn === destinationColumn) {
+          sourceColumn.taskIds.splice(destination.index, 0, draggableId);
+        } else {
+          destinationColumn.taskIds.splice(destination.index, 0, draggableId);
+        }
       });
     });
   }
