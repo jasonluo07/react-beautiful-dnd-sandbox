@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import initialData from './initialData';
+import styled from 'styled-components';
 import Column from './components/Column';
 import { IData } from './types';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import produce from 'immer';
+
+const Container = styled.div`
+  display: flex;
+`;
 
 export default function App() {
   const [data, setData] = useState<IData>(initialData);
@@ -30,11 +35,13 @@ export default function App() {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      {data.columnOrder.map(columnId => {
-        const column = data.columns[columnId];
-        const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
-        return <Column key={column.id} column={column} tasks={tasks} />;
-      })}
+      <Container>
+        {data.columnOrder.map(columnId => {
+          const column = data.columns[columnId];
+          const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
+          return <Column key={column.id} column={column} tasks={tasks} />;
+        })}
+      </Container>
     </DragDropContext>
   );
 }
