@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Task from './Task';
 import { IColumn, ITask } from '../types';
-import { Droppable } from '@hello-pangea/dnd';
+import { Droppable, Draggable } from '@hello-pangea/dnd';
 
 const Container = styled.div`
   margin: 8px;
@@ -28,28 +28,40 @@ const TaskList = styled.div<{ isDraggingOver: boolean }>`
 interface IColumnProps {
   column: IColumn;
   tasks: ITask[];
+  index: number;
 }
 
 export default function Column(props: IColumnProps) {
   return (
-    <Container>
-      <Title>{props.column.title}</Title>
-      <Droppable
-        droppableId={props.column.id}
-      >
-        {(provided, snapshot) => (
-          <TaskList
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            isDraggingOver={snapshot.isDraggingOver}
+    <Draggable
+      draggableId={props.column.id}
+      index={props.index}
+    >
+      {provided => (
+        <Container
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+        >
+          <Title {...provided.dragHandleProps}>{props.column.title}</Title>
+          <Droppable
+            droppableId={props.column.id}
+            type="task"
           >
-            {props.tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} />
-            ))}
-            {provided.placeholder}
-          </TaskList>
-        )}
-      </Droppable>
-    </Container>
+            {(provided, snapshot) => (
+              <TaskList
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                isDraggingOver={snapshot.isDraggingOver}
+              >
+                {props.tasks.map((task, index) => (
+                  <Task key={task.id} task={task} index={index} />
+                ))}
+                {provided.placeholder}
+              </TaskList>
+            )}
+          </Droppable>
+        </Container>
+      )}
+    </Draggable>
   );
 }
