@@ -34,7 +34,10 @@ export default function Column(props: IColumnProps) {
   return (
     <Container>
       <Title>{props.column.title}</Title>
-      <Droppable droppableId={props.column.id}>
+      <Droppable
+        droppableId={props.column.id}
+        type={props.column.id === 'column-3' ? 'done' : 'active'}
+      >
         {(provided, snapshot) => (
           <TaskList
             ref={provided.innerRef}
