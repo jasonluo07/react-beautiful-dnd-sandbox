@@ -29,8 +29,8 @@ export default function Column(props: IColumnProps) {
       <Droppable droppableId={props.column.id}>
         {provided => (
           <TaskList ref={provided.innerRef} {...provided.droppableProps}>
-            {props.tasks.map(task => (
-              <Task key={task.id} task={task} />
+            {props.tasks.map((task, index) => (
+              <Task key={task.id} task={task} index={index} />
             ))}
             {provided.placeholder}
           </TaskList>
