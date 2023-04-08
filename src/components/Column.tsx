@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Task from './Task';
 import { IColumn, ITask } from '../types';
+import { Droppable } from '@hello-pangea/dnd';
 
 const Container = styled.div`
   margin: 8px;
@@ -25,11 +26,16 @@ export default function Column(props: IColumnProps) {
   return (
     <Container>
       <Title>{props.column.title}</Title>
-      <TaskList>
-        {props.tasks.map(task => (
-          <Task key={task.id} task={task} />
-        ))}
-      </TaskList>
+      <Droppable droppableId={props.column.id}>
+        {provided => (
+          <TaskList ref={provided.innerRef} {...provided.droppableProps}>
+            {props.tasks.map(task => (
+              <Task key={task.id} task={task} />
+            ))}
+            {provided.placeholder}
+          </TaskList>
+        )}
+      </Droppable>
     </Container>
   );
 }
