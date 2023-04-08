@@ -35,6 +35,7 @@ export default function Column(props: IColumnProps) {
       <Title>{props.column.title}</Title>
       <Droppable
         droppableId={props.column.id}
+        direction="horizontal"
       >
         {(provided, snapshot) => (
           <TaskList
