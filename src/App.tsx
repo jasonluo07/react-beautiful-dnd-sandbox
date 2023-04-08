@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import initialData from './initial-dats';
+import initialData from './initialData';
 import Column from './components/Column';
 import { IData } from './types';
 
