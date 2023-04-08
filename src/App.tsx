@@ -3,7 +3,7 @@ import initialData from './initialData';
 import styled from 'styled-components';
 import Column from './components/Column';
 import { IData } from './types';
-import { DragDropContext, DropResult } from '@hello-pangea/dnd';
+import { DragDropContext, DropResult, Droppable } from '@hello-pangea/dnd';
 import produce from 'immer';
 
 const Container = styled.div`
@@ -41,15 +41,25 @@ export default function App() {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Container>
-        {data.columnOrder.map((columnId, index) => {
-          const column = data.columns[columnId];
-          const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
-          return (
-            <Column key={column.id} column={column} tasks={tasks} />
-          );
-        })}
-      </Container>
+      <Droppable
+        droppableId="allColumns"
+        direction="horizontal"
+        type="column"
+      >
+        {provided => (
+          <Container
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {data.columnOrder.map((columnId, index) => {
+              const column = data.columns[columnId];
+              const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
+              return <Column key={column.id} column={column} tasks={tasks} />;
+            })}
+            {provided.placeholder}
+          </Container>
+        )}
+      </Droppable>
     </DragDropContext>
   );
 }
