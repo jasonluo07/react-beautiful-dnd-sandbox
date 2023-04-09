@@ -14,17 +14,17 @@ const initialData: Data = {
     'column-1': {
       id: 'column-1',
       title: 'To do',
-      taskIds: ['task-1', 'task-2', 'task-3', 'task-4'],
+      taskOrder: ['task-1', 'task-2', 'task-3', 'task-4'],
     },
     'column-2': {
       id: 'column-2',
       title: 'In progress',
-      taskIds: ['task-5', 'task-6', 'task-7'],
+      taskOrder: ['task-5', 'task-6', 'task-7'],
     },
     'column-3': {
       id: 'column-3',
       title: 'Done',
-      taskIds: [],
+      taskOrder: [],
     },
   },
   columnOrder: ['column-1', 'column-2', 'column-3'],

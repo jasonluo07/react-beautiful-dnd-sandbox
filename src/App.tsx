@@ -27,8 +27,12 @@ export default function App() {
     if (type === 'task') {
       setData(prevData => {
         return produce(prevData, draft => {
-          draft.columns[source.droppableId].taskIds.splice(source.index, 1);
-          draft.columns[destination.droppableId].taskIds.splice(destination.index, 0, draggableId);
+          draft.columns[source.droppableId].taskOrder.splice(source.index, 1);
+          draft.columns[destination.droppableId].taskOrder.splice(
+            destination.index,
+            0,
+            draggableId
+          );
         });
       });
     } else if (type === 'column') {
@@ -48,7 +52,7 @@ export default function App() {
           <Container ref={provided.innerRef} {...provided.droppableProps}>
             {data.columnOrder.map((columnId, index) => {
               const column = data.columns[columnId];
-              const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
+              const tasks = column.taskOrder.map(taskId => data.tasks[taskId]);
               return <Column key={column.id} column={column} tasks={tasks} index={index} />;
             })}
             {provided.placeholder}

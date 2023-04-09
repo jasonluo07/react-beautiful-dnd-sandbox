@@ -7,7 +7,7 @@ export interface Data {
 export interface Column {
   id: string;
   title: string;
-  taskIds: string[];
+  taskOrder: string[];
 }
 
 export interface ColumnProps {
