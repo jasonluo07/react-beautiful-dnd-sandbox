@@ -24,30 +24,21 @@ export default function App() {
       return;
     }
 
-    if (type === 'column') {
+    if (type === 'task') {
+      setData(prevData => {
+        return produce(prevData, draft => {
+          draft.columns[source.droppableId].taskIds.splice(source.index, 1);
+          draft.columns[destination.droppableId].taskIds.splice(destination.index, 0, draggableId);
+        });
+      });
+    } else if (type === 'column') {
       setData(prevData => {
         return produce(prevData, draft => {
           draft.columnOrder.splice(source.index, 1);
           draft.columnOrder.splice(destination.index, 0, draggableId);
         });
       });
-
-      return;
     }
-
-    setData(prevData => {
-      return produce(prevData, draft => {
-        const sourceColumn = draft.columns[source.droppableId];
-        const destinationColumn = draft.columns[destination.droppableId];
-
-        sourceColumn.taskIds.splice(source.index, 1);
-        if (sourceColumn === destinationColumn) {
-          sourceColumn.taskIds.splice(destination.index, 0, draggableId);
-        } else {
-          destinationColumn.taskIds.splice(destination.index, 0, draggableId);
-        }
-      });
-    });
   }
 
   return (
