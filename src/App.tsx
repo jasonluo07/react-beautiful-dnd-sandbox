@@ -2,7 +2,7 @@ import { useState } from 'react';
 import initialData from './initialData';
 import styled from 'styled-components';
 import Column from './components/Column';
-import { Data } from './types';
+import { Kanban } from './types';
 import { DragDropContext, DropResult, Droppable } from '@hello-pangea/dnd';
 import produce from 'immer';
 
@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 export default function App() {
-  const [data, setData] = useState<Data>(initialData);
+  const [kanban, setKanban] = useState<Kanban>(initialData);
 
   function handleDragEnd(result: DropResult) {
     const { destination, source, draggableId, type } = result;
@@ -25,8 +25,8 @@ export default function App() {
     }
 
     if (type === 'task') {
-      setData(prevData => {
-        return produce(prevData, draft => {
+      setKanban(prevKanban => {
+        return produce(prevKanban, draft => {
           draft.columns[source.droppableId].taskOrder.splice(source.index, 1);
           draft.columns[destination.droppableId].taskOrder.splice(
             destination.index,
@@ -36,8 +36,8 @@ export default function App() {
         });
       });
     } else if (type === 'column') {
-      setData(prevData => {
-        return produce(prevData, draft => {
+      setKanban(prevKanban => {
+        return produce(prevKanban, draft => {
           draft.columnOrder.splice(source.index, 1);
           draft.columnOrder.splice(destination.index, 0, draggableId);
         });
@@ -50,9 +50,9 @@ export default function App() {
       <Droppable droppableId="allColumns" direction="horizontal" type="column">
         {provided => (
           <Container ref={provided.innerRef} {...provided.droppableProps}>
-            {data.columnOrder.map((columnId, index) => {
-              const column = data.columns[columnId];
-              const tasks = column.taskOrder.map(taskId => data.tasks[taskId]);
+            {kanban.columnOrder.map((columnId, index) => {
+              const column = kanban.columns[columnId];
+              const tasks = column.taskOrder.map(taskId => kanban.tasks[taskId]);
               return <Column key={column.id} column={column} tasks={tasks} index={index} />;
             })}
             {provided.placeholder}

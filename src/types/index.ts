@@ -1,4 +1,4 @@
-export interface Data {
+export interface Kanban {
   tasks: { [key: string]: Task };
   columns: { [key: string]: Column };
   columnOrder: string[];
