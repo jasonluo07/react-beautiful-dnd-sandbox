@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ITask } from '../types';
+import { TaskProps } from '../types';
 import { Draggable } from '@hello-pangea/dnd';
 
 const Container = styled.div<{ isDragging: boolean }>`
@@ -10,12 +10,7 @@ const Container = styled.div<{ isDragging: boolean }>`
   background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
 `;
 
-interface ITaskProps {
-  task: ITask;
-  index: number;
-}
-
-export default function Task(props: ITaskProps) {
+export default function Task(props: TaskProps) {
   return (
     <Draggable draggableId={props.task.id} index={props.index}>
       {(provided, snapshot) => (

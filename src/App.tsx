@@ -2,7 +2,7 @@ import { useState } from 'react';
 import initialData from './initialData';
 import styled from 'styled-components';
 import Column from './components/Column';
-import { IData } from './types';
+import { Data } from './types';
 import { DragDropContext, DropResult, Droppable } from '@hello-pangea/dnd';
 import produce from 'immer';
 
@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 export default function App() {
-  const [data, setData] = useState<IData>(initialData);
+  const [data, setData] = useState<Data>(initialData);
 
   function handleDragEnd(result: DropResult) {
     const { destination, source, draggableId, type } = result;
@@ -43,16 +43,9 @@ export default function App() {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable
-        droppableId="allColumns"
-        direction="horizontal"
-        type="column"
-      >
+      <Droppable droppableId="allColumns" direction="horizontal" type="column">
         {provided => (
-          <Container
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
+          <Container ref={provided.innerRef} {...provided.droppableProps}>
             {data.columnOrder.map((columnId, index) => {
               const column = data.columns[columnId];
               const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
