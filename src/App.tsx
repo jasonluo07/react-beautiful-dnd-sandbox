@@ -28,11 +28,7 @@ export default function App() {
       setKanban(prevKanban => {
         return produce(prevKanban, draft => {
           draft.columns[source.droppableId].taskOrder.splice(source.index, 1);
-          draft.columns[destination.droppableId].taskOrder.splice(
-            destination.index,
-            0,
-            draggableId
-          );
+          draft.columns[destination.droppableId].taskOrder.splice(destination.index, 0, draggableId);
         });
       });
     } else if (type === 'column') {
