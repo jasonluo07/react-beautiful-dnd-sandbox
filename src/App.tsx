@@ -2,6 +2,7 @@ import { useState } from 'react';
 import initialData from './initialData';
 import styled from 'styled-components';
 import Column from './components/Column';
+import Navbar from './components/Navbar';
 import { Kanban } from './types';
 import { DragDropContext, DropResult, Droppable } from '@hello-pangea/dnd';
 import produce from 'immer';
@@ -28,7 +29,11 @@ export default function App() {
       setKanban(prevKanban => {
         return produce(prevKanban, draft => {
           draft.columns[source.droppableId].taskOrder.splice(source.index, 1);
-          draft.columns[destination.droppableId].taskOrder.splice(destination.index, 0, draggableId);
+          draft.columns[destination.droppableId].taskOrder.splice(
+            destination.index,
+            0,
+            draggableId
+          );
         });
       });
     } else if (type === 'column') {
@@ -42,19 +47,22 @@ export default function App() {
   }
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="allColumns" direction="horizontal" type="column">
-        {provided => (
-          <Container ref={provided.innerRef} {...provided.droppableProps}>
-            {kanban.columnOrder.map((columnId, index) => {
-              const column = kanban.columns[columnId];
-              const tasks = column.taskOrder.map(taskId => kanban.tasks[taskId]);
-              return <Column key={column.id} column={column} tasks={tasks} index={index} />;
-            })}
-            {provided.placeholder}
-          </Container>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <>
+      <Navbar />
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="allColumns" direction="horizontal" type="column">
+          {provided => (
+            <Container ref={provided.innerRef} {...provided.droppableProps}>
+              {kanban.columnOrder.map((columnId, index) => {
+                const column = kanban.columns[columnId];
+                const tasks = column.taskOrder.map(taskId => kanban.tasks[taskId]);
+                return <Column key={column.id} column={column} tasks={tasks} index={index} />;
+              })}
+              {provided.placeholder}
+            </Container>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </>
   );
 }
