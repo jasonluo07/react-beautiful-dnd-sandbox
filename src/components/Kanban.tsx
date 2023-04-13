@@ -8,6 +8,7 @@ import initialData from '../initialData';
 
 const Container = styled.div`
   display: flex;
+  align-items: flex-start;
 `;
 
 export default function Kanban() {
@@ -42,6 +43,8 @@ export default function Kanban() {
   }
 
   const handleAddTask = (columnId: string, content: string) => {
+    if (!content) return;
+
     const newTaskId = `task-${Date.now()}`;
     const newTask = { id: newTaskId, content };
     setKanban(prevKanban => {
