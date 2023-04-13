@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Column from './Column';
+import AddColumn from './AddColumn';
 import { IKanban } from '../types';
 import { DragDropContext, DropResult, Droppable } from '@hello-pangea/dnd';
 import produce from 'immer';
@@ -10,6 +11,8 @@ const Container = styled.div`
   display: flex;
   align-items: flex-start;
   background-color: #e6e6e6;
+  min-width: 100vw;
+  min-height: 100vh;
 `;
 
 export default function Kanban() {
@@ -56,6 +59,19 @@ export default function Kanban() {
     });
   };
 
+  const handleAddColumn = (title: string) => {
+    if (!title) return;
+  
+    const newColumnId = `column-${Date.now()}`;
+    const newColumn = { id: newColumnId, title, taskOrder: [] };
+    setKanban(prevKanban => {
+      return produce(prevKanban, draft => {
+        draft.columns[newColumnId] = newColumn;
+        draft.columnOrder.push(newColumnId);
+      });
+    });
+  };  
+
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="allColumns" direction="horizontal" type="column">
@@ -67,7 +83,7 @@ export default function Kanban() {
               return <Column key={column.id} column={column} tasks={tasks} index={index} onAddTask={handleAddTask} />;
             })}
             {provided.placeholder}
-            {/* <AddColumn /> */}
+            <AddColumn onAddColumn={handleAddColumn} />
           </Container>
         )}
       </Droppable>

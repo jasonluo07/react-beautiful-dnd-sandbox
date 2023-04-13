@@ -8,7 +8,7 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
   background-color: white;
-  width: 220px;
+  min-width: 220px;
 
   display: flex;
   flex-direction: column;
