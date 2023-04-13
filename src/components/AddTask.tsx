@@ -8,13 +8,12 @@ const Container = styled.div`
 
 const Input = styled.input`
   border: none;
-
   height: 40px;
   line-height: 40px;
-  
   width: 100%;
   padding: 0 8px;
   box-sizing: border-box;
+  font-size: 14px;
 `;
 
 interface AddTaskProps {
