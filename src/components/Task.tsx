@@ -4,7 +4,6 @@ import { Draggable } from '@hello-pangea/dnd';
 
 const Container = styled.div<{ isDragging: boolean }>`
   border: 1px solid lightgrey;
-  border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
   background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
