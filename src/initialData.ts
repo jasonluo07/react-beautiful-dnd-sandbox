@@ -18,7 +18,7 @@ const initialData: IKanban = {
     },
     'column-2': {
       id: 'column-2',
-      title: 'In progress',
+      title: 'In Progress',
       taskOrder: ['task-5', 'task-6', 'task-7'],
     },
     'column-3': {

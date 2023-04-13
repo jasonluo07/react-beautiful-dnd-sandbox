@@ -2,14 +2,16 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  background-color: white;
   border: 1px solid lightgrey;
+  background-color: white;
 `;
 
 const Input = styled.input`
+  border: none;
+
   height: 40px;
   line-height: 40px;
-  border: none;
+  
   width: 100%;
   padding: 0 8px;
   box-sizing: border-box;

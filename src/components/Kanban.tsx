@@ -9,6 +9,7 @@ import initialData from '../initialData';
 const Container = styled.div`
   display: flex;
   align-items: flex-start;
+  background-color: #e6e6e6;
 `;
 
 export default function Kanban() {
