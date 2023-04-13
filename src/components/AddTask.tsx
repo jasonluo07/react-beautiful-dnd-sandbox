@@ -7,9 +7,11 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
+  height: 40px;
+  line-height: 40px;
   border: none;
   width: 100%;
-  padding: 8px;
+  padding: 0 8px;
   box-sizing: border-box;
 `;
 
