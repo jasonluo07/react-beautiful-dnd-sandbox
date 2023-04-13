@@ -1,6 +1,6 @@
-import { Kanban } from './types';
+import { IKanban } from './types';
 
-const initialData: Kanban = {
+const initialData: IKanban = {
   tasks: {
     'task-1': { id: 'task-1', content: 'Take out the garbage' },
     'task-2': { id: 'task-2', content: 'Watch my favorite show' },
