@@ -66,6 +66,7 @@ export default function Kanban() {
               return <Column key={column.id} column={column} tasks={tasks} index={index} onAddTask={handleAddTask} />;
             })}
             {provided.placeholder}
+            {/* <AddColumn /> */}
           </Container>
         )}
       </Droppable>
