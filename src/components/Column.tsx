@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import AddTask from './AddTask';
 import Task from './Task';
 import { ColumnProps } from '../types';
 import { Droppable, Draggable } from '@hello-pangea/dnd';
@@ -43,6 +44,7 @@ export default function Column(props: ColumnProps) {
                   <Task key={task.id} task={task} index={index} />
                 ))}
                 {provided.placeholder}
+                <AddTask columnId={props.column.id} onAddTask={props.onAddTask} />
               </TaskList>
             )}
           </Droppable>

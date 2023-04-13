@@ -41,6 +41,17 @@ export default function Kanban() {
     }
   }
 
+  const handleAddTask = (columnId: string, content: string) => {
+    const newTaskId = `task-${Date.now()}`;
+    const newTask = { id: newTaskId, content };
+    setKanban(prevKanban => {
+      return produce(prevKanban, draft => {
+        draft.tasks[newTaskId] = newTask;
+        draft.columns[columnId].taskOrder.push(newTaskId);
+      });
+    });
+  };
+
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="allColumns" direction="horizontal" type="column">
@@ -49,7 +60,7 @@ export default function Kanban() {
             {kanban.columnOrder.map((columnId, index) => {
               const column = kanban.columns[columnId];
               const tasks = column.taskOrder.map(taskId => kanban.tasks[taskId]);
-              return <Column key={column.id} column={column} tasks={tasks} index={index} />;
+              return <Column key={column.id} column={column} tasks={tasks} index={index} onAddTask={handleAddTask} />;
             })}
             {provided.placeholder}
           </Container>

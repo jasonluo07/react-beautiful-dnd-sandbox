@@ -14,6 +14,7 @@ export interface ColumnProps {
   column: Column;
   tasks: Task[];
   index: number;
+  onAddTask: (columnId: string, content: string) => void;
 }
 
 export interface Task {
