@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -21,28 +21,25 @@ interface AddTaskProps {
 }
 
 export default function AddTask({ columnId, onAddTask }: AddTaskProps) {
-  const [inputValue, setInputValue] = useState('');
+  const [title, setTitle] = useState('');
 
-  function handleKeyPress(event: React.KeyboardEvent) {
-    if (event.key === 'Enter') {
-      onAddTask(columnId, inputValue);
-      setInputValue('');
-    }
+  function handleChange(evnet: ChangeEvent<HTMLInputElement>) {
+    setTitle(evnet.target.value);
   }
 
-  function handleContainerClick() {
-    if (inputValue.trim()) {
-      onAddTask(columnId, inputValue);
-      setInputValue('');
+  function handleKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      onAddTask(columnId, title);
+      setTitle('');
     }
   }
 
   return (
-    <Container onClick={handleContainerClick}>
+    <Container>
       <Input
-        value={inputValue}
-        onChange={event => setInputValue(event.target.value)}
-        placeholder="Add a new task..."
+        value={title}
+        placeholder="Add a new task"
+        onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
     </Container>
