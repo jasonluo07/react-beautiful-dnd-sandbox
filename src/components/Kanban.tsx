@@ -26,7 +26,10 @@ export default function Kanban() {
       return;
     }
 
-    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
       return;
     }
 
@@ -34,7 +37,11 @@ export default function Kanban() {
       setKanban(prevKanban => {
         return produce(prevKanban, draft => {
           draft.columns[source.droppableId].taskOrder.splice(source.index, 1);
-          draft.columns[destination.droppableId].taskOrder.splice(destination.index, 0, draggableId);
+          draft.columns[destination.droppableId].taskOrder.splice(
+            destination.index,
+            0,
+            draggableId
+          );
         });
       });
     } else if (type === 'column') {
@@ -62,7 +69,7 @@ export default function Kanban() {
 
   const handleAddColumn = (title: string) => {
     if (!title) return;
-  
+
     const newColumnId = `column-${Date.now()}`;
     const newColumn = { id: newColumnId, title, taskOrder: [] };
     setKanban(prevKanban => {
@@ -71,7 +78,7 @@ export default function Kanban() {
         draft.columnOrder.push(newColumnId);
       });
     });
-  };  
+  };
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
@@ -80,8 +87,18 @@ export default function Kanban() {
           <Container ref={provided.innerRef} {...provided.droppableProps}>
             {kanban.columnOrder.map((columnId, index) => {
               const column = kanban.columns[columnId];
-              const tasks = column.taskOrder.map(taskId => kanban.tasks[taskId]);
-              return <Column key={column.id} column={column} tasks={tasks} index={index} onAddTask={handleAddTask} />;
+              const tasks = column.taskOrder.map(
+                taskId => kanban.tasks[taskId]
+              );
+              return (
+                <Column
+                  key={column.id}
+                  column={column}
+                  tasks={tasks}
+                  index={index}
+                  onAddTask={handleAddTask}
+                />
+              );
             })}
             {provided.placeholder}
             <AddColumn onAddColumn={handleAddColumn} />
