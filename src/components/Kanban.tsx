@@ -13,6 +13,7 @@ const Container = styled.div`
   background-color: #e6e6e6;
   min-width: 100vw;
   min-height: 100vh;
+  overflow-x: auto;
 `;
 
 export default function Kanban() {
